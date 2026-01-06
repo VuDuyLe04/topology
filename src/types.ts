@@ -4,7 +4,7 @@ import { DataFrame, Field, IconName } from '@grafana/data';
 
 declare module 'd3-force';
 
-export type { Options as NodeGraphOptions, ArcOption, ZoomMode } from './config/panelCfg';
+export type { Options as NodeGraphOptions, ZoomMode } from './config/panelCfg';
 
 export type NodeDatum = SimulationNodeDatum & {
   id: string;
@@ -24,13 +24,11 @@ export type NodeDatum = SimulationNodeDatum & {
 
 export type NodeDatumFromEdge = NodeDatum & { mainStatNumeric?: number; secondaryStatNumeric?: number };
 
-// This is the data we have before the graph is laid out with source and target being string IDs.
 type LinkDatum = SimulationLinkDatum<NodeDatum> & {
   source: string;
   target: string;
 };
 
-// This is some additional data we expect with the edges.
 export type EdgeDatum = LinkDatum & {
   id: string;
   mainStat: string;
@@ -47,7 +45,6 @@ export type EdgeDatum = LinkDatum & {
   strokeDasharray?: string;
 };
 
-// After layout is run D3 will change the string IDs for actual references to the nodes.
 export type EdgeDatumLayout = Omit<EdgeDatum, 'source' | 'target'> & {
   source: NodeDatum;
   target: NodeDatum;
@@ -61,4 +58,5 @@ export type NodesMarker = {
 export type GraphFrame = {
   nodes: DataFrame[];
   edges: DataFrame[];
+  // eslint-disable-next-line eol-last
 };

@@ -1,14 +1,11 @@
-
-export interface ArcOption {
-    color?: string;
-    field?: string;
-}
-
 export enum ZoomMode {
 }
 
 export enum LayoutAlgorithm {
-    Layered = 'layered',
+    LayeredTopDown = 'layered-top-down',
+    LayeredBottomUp = 'layered-bottom-up',
+    LayeredRightLeft = 'layered-right-left',
+    LayeredLeftRight = 'layered-left-right',
 }
 
 export interface Options {
@@ -16,14 +13,16 @@ export interface Options {
 
     layoutAlgorithm?: LayoutAlgorithm;
 
+    theme?: string;
+
     nodes?: {
         mainStatUnit?: string;
         secondaryStatUnit?: string;
-        arcs?: Array<ArcOption>;
     };
 
     edges?: {
         mainStatUnit?: string;
         secondaryStatUnit?: string;
     };
+    // eslint-disable-next-line eol-last
 }
