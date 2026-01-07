@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PanelProps } from '@grafana/data';
 import { Options as TopologyOptions } from '../../config/panelCfg';
 import { css, cx } from '@emotion/css';
@@ -22,6 +22,43 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height, fie
 
     // return <PanelDataErrorView fieldConfig={fieldConfig} panelId={id} data={data} needsStringField />;
 
+//     const debugJson = useMemo(() => {
+//     return JSON.stringify(
+//       data?.series?.map((frame: any) => ({
+//         name: frame.name,
+//         fields: frame.fields.map((f: any) => ({
+//           name: f.name,
+//           type: f.type,
+//           values: f.values?.toArray?.() ?? [],
+//         })),
+//       })) ?? [],
+//       null,
+//       2
+//     );
+//   }, [data]);
+
+//   return (
+//     <div
+//       className={cx(
+//         styles.wrapper,
+//         css`
+//           width: ${width}px;
+//           height: ${height}px;
+//           overflow: auto;
+//         `
+//       )}
+//     >
+//       <pre
+//         style={{
+//           fontSize: 12,
+//           whiteSpace: 'pre-wrap',
+//         }}
+//       >
+//         {debugJson}
+//       </pre>
+//     </div>
+//   );
+
     if (!data || !data.series.length || data.series.length === 0) {
         return <PanelDataErrorView fieldConfig={fieldConfig} panelId={id} data={data} needsStringField />;
     }
@@ -36,7 +73,7 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height, fie
         `
             )}
         >
-            <Topology width={width} height={height} theme={options.theme ?? 'dark'} />
+            <Topology width={width} height={height} theme={options.theme ?? 'dark'} data={data} />
         </div>
     );
     // eslint-disable-next-line eol-last
